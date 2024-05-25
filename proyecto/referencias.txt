@@ -1,0 +1,3 @@
+https://protobuf.dev/overview/  información sobre .proto
+https://grpc.io/docs/what-is-grpc/introduction/ información sobre gRPC
+https://www.ibm.com/topics/message-brokers información sobre message-brokers
