@@ -1,0 +1,6 @@
+https://protobuf.dev/overview/  información sobre .proto
+https://grpc.io/docs/what-is-grpc/introduction/ información sobre gRPC
+https://github.com/grpc/grpc repo de GitHub con ejemplos e información sobre gRPC
+https://www.ibm.com/topics/message-brokers información sobre message-brokers
+https://docs.python.org/3/library/threading.html documentación sobre threading
+https://www.pythontutorial.net/python-concurrency/python-threading/ ejemplos de uso de threading 
