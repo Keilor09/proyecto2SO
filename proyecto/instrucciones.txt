@@ -10,3 +10,5 @@ python3 server.py
 python3 client.py
 
 5. El programa únicamente soporta texto, no se pueden imágenes o ningún otro tipo de archivo.
+
+6. Los temas disponibles son Futbol, Atletismo y Natacion
