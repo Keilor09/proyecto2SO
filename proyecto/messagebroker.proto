@@ -1,0 +1,73 @@
+syntax = "proto3"; 
+
+package messagebroker; 
+
+import "google/protobuf/empty.proto"; // Importa el tipo Empty de protobuf para utilizarlo en los servicios
+
+// Definicion de los mensajes
+
+// Mensaje que representa un mensaje con contenido y una marca de tiempo
+message Mensaje {
+  string contenido = 1; // Contenido del mensaje
+  string marca_de_tiempo = 2; // Marca de tiempo del mensaje
+}
+
+// Mensaje que representa un tema con un nombre y una lista de mensajes
+message Tema {
+  string nombre = 1; // Nombre del tema
+  repeated Mensaje mensajes = 2; // Lista de mensajes asociados con el tema
+}
+
+// Mensaje que representa una solicitud para publicar un mensaje en un tema
+message PublicarSolicitud {
+  string tema = 1; // Nombre del tema
+  Mensaje mensaje = 2; // Mensaje a publicar
+}
+
+// Mensaje que representa una solicitud para suscribirse a un tema
+message SuscribirSolicitud {
+  string tema = 1; // Nombre del tema
+}
+
+// Mensaje que representa la respuesta a una solicitud de suscripcion, conteniendo un mensaje
+message SuscribirRespuesta {
+  Mensaje mensaje = 1; // Mensaje recibido del tema suscrito
+}
+
+// Mensaje que representa el reconocimiento de una operacion, indicando si fue exitosa o no
+message Acknowledge {
+  bool exito = 1; // Indica si la operacion fue exitosa (true) o no (false)
+}
+
+// Mensaje que representa la respuesta a una solicitud de listar todos los temas
+message ListarTemasRespuesta {
+  repeated string temas = 1; // Lista de nombres de temas disponibles
+}
+
+// Mensaje que representa un tema suscrito, incluyendo su nombre y una lista de mensajes
+message TemaSuscrito {
+  string nombre = 1; // Nombre del tema suscrito
+  repeated Mensaje mensajes = 2; // Lista de mensajes asociados con el tema suscrito
+}
+
+// Mensaje que representa la respuesta a una solicitud de obtener los temas suscritos
+message ObtenerTemasSuscritosRespuesta {
+  repeated TemaSuscrito temas = 1; // Lista de temas suscritos
+}
+
+// Definicion de los servicios
+
+// Servicio MessageBroker que define los métodos RPC disponibles
+service MessageBroker {
+  // Metodo para publicar un mensaje en un tema
+  rpc Publicar(PublicarSolicitud) returns (Acknowledge);
+  
+  // Metodo para suscribirse a un tema, que devuelve un flujo de respuestas de suscripción
+  rpc Suscribir(SuscribirSolicitud) returns (stream SuscribirRespuesta);
+  
+  // Metodo para listar todos los temas disponibles
+  rpc ListarTemas(google.protobuf.Empty) returns (ListarTemasRespuesta);
+  
+  // Metodo para obtener los temas a los que un cliente está suscrito
+  rpc ObtenerTemasSuscritos(google.protobuf.Empty) returns (ObtenerTemasSuscritosRespuesta);
+}
